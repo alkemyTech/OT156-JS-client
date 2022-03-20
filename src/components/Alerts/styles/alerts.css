@@ -1,0 +1,50 @@
+:root {
+  --error: #d32f2f;
+  --success: #388e3c;
+  --info: #0288d1;
+}
+.errorTitle {
+  color: var(--error) !important;
+}
+
+.infoTitle {
+  color: var(--info) !important ;
+}
+
+.successTitle {
+  color: var(--success) !important;
+}
+
+.errorIcon {
+  border-color: var(--error) !important;
+  color: var(--error) !important;
+}
+
+.infoIcon {
+  border-color: var(--info) !important;
+  color: var(--info) !important;
+}
+
+.successIcon {
+  border-color: var(--success) !important;
+  color: var(--success) !important;
+}
+
+.infoContainer,
+.errorContainer,
+.successContainer {
+  width: 30% !important;
+  height: 50% !important;
+}
+
+.errorButton {
+  background-color: var(--error) !important;
+}
+
+.infoButton {
+  background-color: var(--info) !important;
+}
+
+.successButton {
+  background-color: var(--success) !important;
+}
