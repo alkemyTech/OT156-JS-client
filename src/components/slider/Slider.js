@@ -1,37 +1,51 @@
-import React from 'react'
-import Carousel from 'react-bootstrap/Carousel';
+import React, { useEffect, useState } from 'react'
 import './slider.css';
+import { dataTest } from "./dataSlider";
+import { FaArrowAltCircleLeft,FaArrowAltCircleRight } from 'react-icons/fa'
 /*
-const dataTest =[
-    {imageUrl:"https://somosmas.org/wp-content/uploads/2018/03/procesos-innovadores.jpg",
-        text:"Procesos innovadores"},
-    { imageUrl:"https://somosmas.org/wp-content/uploads/2018/03/como-lo-hacemos.jpg" , 
-        text:"Como lo hacemos"},
-    { imageUrl :"https://somosmas.org/wp-content/uploads/2018/03/historia.jpg", 
-        text:"Historia"}
-]
+    fix slide
 */
-const Slider = (props) => {
+const Slider = () => {
+    // data slide
+    const [ data, setData ]=useState([]);
+    //current image selector
+    const [current,setCurrent]= useState(0);
+    const delay = 5000;
+    const length = data.length;
+ 
+    useEffect(() => {
+        setData(dataTest);
+        }, [])
+
+    const prevSlide =()=>{
+        setCurrent(current === 0 ? length -1 : current-1)
+    }
+    const nextSlide=()=>{
+        setCurrent(current === length -1 ? 0 : current+1)
+    }
+    useEffect(() => {
+        const id = setTimeout(() => nextSlide(), delay);
+        return () => clearTimeout(id);
+        }, [current]);
+
+    if (!Array.isArray(data) || data.length <=0){
+        return null;
+    };
   return (
-    <div>
-        <Carousel fade>
-            {
-                props?.dataTest?.map( (item,index)=>{
-                    return(
-                        <Carousel.Item key={index}>
-                            <img
-                                className="d-block w-100"
-                                src={item.imageUrl}
-                                alt={item.text}/>
-                            <Carousel.Caption className='bg-text'>
-                                <h3>{item.text}</h3>
-                            </Carousel.Caption>
-                        </Carousel.Item>    
-                    )
-                })
-            }           
-        </Carousel>
-    </div>
+    <section className='slider'>
+        <FaArrowAltCircleLeft className='izquierda-arrow' onClick={prevSlide}/>
+        <FaArrowAltCircleRight className='derecha-arrow' onClick={nextSlide}/>
+        {
+            data?.map( (slide,index)=>{
+                return (                    
+                        <div className={ index === current ? 'slide active' : 'slide'}  key={index} >
+                            {index === current && <div>
+                                 <img src={slide.imageUrl } alt={slide.text} className='image' />
+                                 <h3>{slide.text}</h3>
+                                </div>   }  
+                        </div>)
+        })}
+    </section>
   )
 }
 
