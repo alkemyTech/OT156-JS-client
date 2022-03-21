@@ -1,56 +1,74 @@
 import React from "react";
-import { Formik, Form, Field } from "formik";
-import {
-  validateEmail,
-  validateUsername,
-  validateLastName,
-  validatePassword,
-} from "../utils/validations";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 
 const FieldLevelValidationExample = () => {
+  const SignupSchema = Yup.object().shape({
+    name: Yup.string().required("Required"),
+    lastname: Yup.string().required("Required"),
+    password: Yup.string().min(6, "Too Short!").required("Required"),
+    email: Yup.string().email("Invalid email").required("Required"),
+  });
+  const initialForm = {
+    name: "",
+    lastname: "",
+    email: "",
+    password: "",
+  };
   return (
     <div>
       <h1>Registrar</h1>
       <Formik
-        initialValues={{
-          username: "",
-          lastname: "",
-          email: "",
-          password: "",
-        }}
-        onSubmit={(values) => {
-          // same shape as initial values
-          console.log(values);
+        initialValues={initialForm}
+        validationSchema={SignupSchema}
+        onSubmit={(values, { resetForm }) => {
+          resetForm();
+          // TODO
+          console.log(" TODO POST /user", values);
         }}
       >
-        {({ errors, touched }) => (
+        {({ errors }) => (
           <Form>
-            <div class="row g-3 align-items-center">
-              <label class="form-label" for="email">
+            <div className="row g-3 align-items-center">
+              <label className="form-label" htmlFor="email">
                 Email
               </label>
-              <Field name="email" validate={validateEmail} />
-              {errors.email && touched.email && <div>{errors.email}</div>}
+              <Field name="email" />
+              <ErrorMessage
+                name="email"
+                component={() => (
+                  <div className="text-danger">{errors.email}</div>
+                )}
+              />
             </div>
-            <div class="mb-3">
-              <label for="username">Nombre</label>
-              <Field name="username" validate={validateUsername} />
-              {errors.username && touched.username && (
-                <div>{errors.username}</div>
+            <div className="mb-3">
+              <label htmlFor="name">Nombre</label>
+              <Field name="name" />
+              <ErrorMessage
+                name="name"
+                component={() => (
+                  <div className="text-danger">{errors.name}</div>
+                )}
+              />
+            </div>
+            <label htmlFor="lastename">Apellido</label>
+
+            <Field name="lastname" />
+            <ErrorMessage
+              name="lastname"
+              component={() => (
+                <div className="text-danger">{errors.lastname}</div>
               )}
-            </div>
-            <label for="lastename">Apellido</label>
+            />
+            <label htmlFor="password">Contraseña</label>
 
-            <Field name="lastname" validate={validateLastName} />
-            {errors.lastname && touched.lastname && (
-              <div>{errors.lastname}</div>
-            )}
-            <label for="password">Contraseña</label>
-
-            <Field name="password" validate={validatePassword} />
-            {errors.password && touched.password && (
-              <div>{errors.password}</div>
-            )}
+            <Field name="password" />
+            <ErrorMessage
+              name="password"
+              component={() => (
+                <div className="text-danger">{errors.password}</div>
+              )}
+            />
             <button type="submit">Submit</button>
           </Form>
         )}
