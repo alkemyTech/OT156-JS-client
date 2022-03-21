@@ -1,6 +1,7 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import Swal from "sweetalert2";
 
 const FieldLevelValidationExample = () => {
   const SignupSchema = Yup.object().shape({
@@ -23,53 +24,84 @@ const FieldLevelValidationExample = () => {
         validationSchema={SignupSchema}
         onSubmit={(values, { resetForm }) => {
           resetForm();
+          Swal.fire("Enviado!", "", "success");
           // TODO
           console.log(" TODO POST /user", values);
         }}
       >
         {({ errors }) => (
           <Form>
-            <div className="row g-3 align-items-center">
-              <label className="form-label" htmlFor="email">
-                Email
+            <div className="mb-3">
+              <label htmlFor="name" className="form-label">
+                Nombre
               </label>
-              <Field name="email" />
+              <Field name="name" className="form-control" />
               <ErrorMessage
-                name="email"
+                name="name"
                 component={() => (
-                  <div className="text-danger">{errors.email}</div>
+                  <div
+                    className="invalid-feedback"
+                    style={{ display: "inline" }}
+                  >
+                    {errors.name}
+                  </div>
                 )}
               />
             </div>
             <div className="mb-3">
-              <label htmlFor="name">Nombre</label>
-              <Field name="name" />
+              <label className="form-label" htmlFor="lastename">
+                Apellido
+              </label>
+              <Field name="lastname" className="form-control" />
               <ErrorMessage
-                name="name"
+                name="lastname"
                 component={() => (
-                  <div className="text-danger">{errors.name}</div>
+                  <div
+                    className="invalid-feedback"
+                    style={{ display: "inline" }}
+                  >
+                    {errors.lastname}
+                  </div>
                 )}
               />
             </div>
-            <label htmlFor="lastename">Apellido</label>
-
-            <Field name="lastname" />
-            <ErrorMessage
-              name="lastname"
-              component={() => (
-                <div className="text-danger">{errors.lastname}</div>
-              )}
-            />
-            <label htmlFor="password">Contraseña</label>
-
-            <Field name="password" />
-            <ErrorMessage
-              name="password"
-              component={() => (
-                <div className="text-danger">{errors.password}</div>
-              )}
-            />
-            <button type="submit">Submit</button>
+            <div className="mb-3">
+              <label className="form-label" htmlFor="email">
+                Email
+              </label>
+              <Field name="email" className="form-control" />
+              <ErrorMessage
+                name="email"
+                component={() => (
+                  <div
+                    className="invalid-feedback"
+                    style={{ display: "inline" }}
+                  >
+                    {errors.email}
+                  </div>
+                )}
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="password" className="form-label">
+                Contraseña
+              </label>
+              <Field name="password" className="form-control" />
+              <ErrorMessage
+                name="password"
+                component={() => (
+                  <div
+                    className="invalid-feedback"
+                    style={{ display: "inline" }}
+                  >
+                    {errors.password}
+                  </div>
+                )}
+              />
+            </div>
+            <button type="submit" className="btn btn-primary">
+              Enviar
+            </button>
           </Form>
         )}
       </Formik>
