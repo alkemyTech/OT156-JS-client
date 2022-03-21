@@ -15,7 +15,7 @@ const Slider = () => {
  
     useEffect(() => {
         setData(dataTest);
-        }, [])
+        }, []) 
 
     const prevSlide =()=>{
         setCurrent(current === 0 ? data.length -1 : current-1)
