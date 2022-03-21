@@ -1,0 +1,20 @@
+.news-container{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: start;
+    margin-left: 30px;
+}
+.news-container-inner{
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-gap: 1rem;
+}
+
+@media (min-width: 600px) {
+    .news-container-inner { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (min-width: 900px) {
+    .news-container-inner{ grid-template-columns: repeat(3, 1fr); }
+  }
