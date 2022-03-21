@@ -1,0 +1,20 @@
+.news-post{
+    min-height: 250px;
+    margin: 20px;
+    margin: 20px;
+    box-shadow: 10px 10px 5px rgb(149, 150, 150);
+}
+.news-post a .news-image img{
+    width:300px;
+    height:150px
+    
+}
+.news-post a .title{
+    text-align: left;
+}
+.news-post .post-content .post-content-inner p{
+    
+}
+.news-post .leer-mas{
+
+}
