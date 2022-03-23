@@ -4,20 +4,16 @@ import axios from 'axios';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 
 const Header = () => {
-  const [name, setName] = useState('');
-  const [image, setImage] = useState('');
-  const [navLink, setNavLink] = useState([]);
+  const [result, setResult] = useState({});
+
+  const getData = async () => {
+    const res = await axios.get('http://localhost:3000/organizations/1/public');
+    const data = await res.data;
+    setResult(data);
+  };
 
   useEffect(() => {
-    axios({
-      method: 'get',
-      url: 'http://localhost:3000/organizations/1/public',
-    }).then((res) => {
-      setName(res?.name);
-      setImage(res?.image);
-      setNavLink(res?.nav);
-      console.log(res);
-    });
+    getData();
   }, []);
 
   return (
@@ -25,16 +21,16 @@ const Header = () => {
       <Container>
         <Navbar.Brand href="#home">
           <img
-            alt={name}
-            src={image}
+            alt={result.name}
+            src={result.image}
             width="30"
             height="30"
             className="d-inline-block align-top"
           />{' '}
-          {name}
+          {result.name}
         </Navbar.Brand>
         <Nav className="me-auto">
-          {navLink?.map((nav, index) => (
+          {result.navLink?.map((nav, index) => (
             <Nav.Link key={index} href={nav}>
               <Link to={`./${nav.link}`}>{nav.name}</Link>
             </Nav.Link>
