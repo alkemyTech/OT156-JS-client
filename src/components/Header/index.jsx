@@ -30,7 +30,7 @@ const Header = () => {
           {result.name}
         </Navbar.Brand>
         <Nav className="me-auto">
-          {result.navLink?.map((nav, index) => (
+          {result?.navLink?.map((nav, index) => (
             <Nav.Link key={index} href={nav}>
               <Link to={`./${nav.link}`}>{nav.name}</Link>
             </Nav.Link>
