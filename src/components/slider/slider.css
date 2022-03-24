@@ -2,17 +2,18 @@
   position: relative;
   height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  
 }
 .slider .image{
-  width: 1000px;
-  height: 600px;
+  width: 100vw;
+  height: 70vh;
   border-radius: 10px;
+  object-fit: cover;
+
 }
-.right-arrow{
+.slider .right-arrow{
   position: absolute;
-  top: 50%;
+  top: 35%;
   right: 32px;
   font-size: 3rem;
   color: #000;
@@ -22,9 +23,9 @@
   
 }
  
-.left-arrow{
+.slider .left-arrow{
   position: absolute;
-  top: 50%;
+  top: 35%;
   left: 32px;
   font-size: 3rem;
   color: #000;
@@ -35,12 +36,12 @@
 .slide {
   opacity: 0;
   transition-duration:  1s ease;
-
+  transform: scale(0.98);
 }
 .slide.active{
   opacity: 1;
   transition-duration: 1s;
-  transform: scale(1.08);
+  transform: scale(1);
 }
 .right-arrow:hover, .left-arrow:hover{
   color: darkorange;
