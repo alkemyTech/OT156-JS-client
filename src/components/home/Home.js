@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import './home.css';
 import Slider from '../slider/Slider';
-import {dataNews  } from "./dataNews";   
 import NewsCard from '../news/NewsCard';
 import HomeTitle from './HomeTitle';
+import {dataNews  } from "./dataNews";
+import './home.css';
 
+const Home = ( { welcome , news } ) => {
 
-const Home = ({welcome,news}) => {
-    const [data,setData]= useState({welcome:"",news:[]});
+    const [ data , setData ] = useState( { welcome : "" , news : [] } );
  
-    useEffect(() => {        
-        setData({
-            welcome:welcome,
-            news: dataNews.slice(-4)
+    useEffect( () => {        
+        setData( {
+            welcome : welcome,
+            news : dataNews.slice(-4)
         })
-        //console.log(data.news);
-       }
-    , [])
+       }, [])
     
   return (
     <div className='layout'>
