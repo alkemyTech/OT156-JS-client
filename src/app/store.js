@@ -1,10 +1,8 @@
-import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
-import globalReducer from './globalReducer';
+import { configureStore } from "@reduxjs/toolkit";
+import counterReducer from "../features/counter/counterSlice";
 
 export default configureStore({
   reducer: {
     counter: counterReducer,
-    global: globalReducer,
   },
 });
