@@ -1,0 +1,16 @@
+.successTitle {
+  color: var(--success) !important;
+}
+.successIcon {
+  border-color: var(--success) !important;
+  color: var(--success) !important;
+}
+
+.successContainer {
+  width: 30% !important;
+  height: 50% !important;
+}
+
+.successButton {
+  background-color: var(--success) !important;
+}
