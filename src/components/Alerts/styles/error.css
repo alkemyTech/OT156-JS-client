@@ -1,0 +1,17 @@
+.errorTitle {
+  color: var(--error) !important;
+}
+
+.errorIcon {
+  border-color: var(--error) !important;
+  color: var(--error) !important;
+}
+
+.errorContainer {
+  width: 30% !important;
+  height: 50% !important;
+}
+
+.errorButton {
+  background-color: var(--error) !important;
+}
