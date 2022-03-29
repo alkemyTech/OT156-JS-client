@@ -1,0 +1,17 @@
+.infoTitle {
+  color: var(--info) !important ;
+}
+
+.infoIcon {
+  border-color: var(--info) !important;
+  color: var(--info) !important;
+}
+
+.infoContainer {
+  width: 30% !important;
+  height: 50% !important;
+}
+
+.infoButton {
+  background-color: var(--info) !important;
+}
