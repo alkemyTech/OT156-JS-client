@@ -44,7 +44,7 @@ const TestimonialsForm = ({ testimony }) => {
             content
         }
         if (testimony) {
-            axios.patch(`/api/testimonials/${testimony.id}`, testimonial)
+            axios.patch(`http://localhost:3000/testimonials/${testimony.id}`, testimonial)
                 .then(res => {
                     console.log(res);
                 })
@@ -52,7 +52,7 @@ const TestimonialsForm = ({ testimony }) => {
                     console.log(err);
                 })
         } else {
-            postRequest('http://localhost:3001/testimonials', testimonial)
+            postRequest('http://localhost:3000/testimonials', testimonial)
                 .then(res => {
                     setName('');
                     setImage(null);
