@@ -7,11 +7,18 @@ export const userSlice = createSlice({
     },
     reducers: {
         login: (state, action) => {
-            state.token = action.payload;
+            const {id,firstName,lastName,email,image,roleId,token} = action.payload;
+            state.id = id;
+            state.firstName = firstName;
+            state.lastName = lastName;
+            state.email = email;
+            state.image = image;
+            state.roleId = roleId;
+            state.token = token;
         },
 
         logout: (state) => {
-            state.token = null;
+            state = null;
         },
     },
 });

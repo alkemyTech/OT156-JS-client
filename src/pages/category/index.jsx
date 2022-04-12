@@ -24,7 +24,7 @@ const Category = () => {
       const res = await axios.get(`http://localhost:4000/categories/`);
       const data = await res.data;
       setCategoryEdit(data);
-      setSendComplete({ success: true, msg: dataRes });
+      setSendComplete({ success: true, msg: data });
     } catch (error) {
       setSendComplete({ error: true, msg: error.message });
     } finally {

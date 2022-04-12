@@ -12,7 +12,6 @@ const Login = () => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    console.log(user)
     return (
         <>
             <Formik
@@ -48,7 +47,7 @@ const Login = () => {
                         .then(res => {
                             const token = res.data.token;
                             localStorage.setItem('token', token);
-                            dispatch(login(token));
+                            dispatch(login(res.data));
                             resetForm();
 
                         }).catch(error => {
