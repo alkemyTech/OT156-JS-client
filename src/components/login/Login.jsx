@@ -2,13 +2,17 @@ import React from 'react';
 import { useState } from 'react';
 import { Formik, ErrorMessage } from 'formik';
 import { Form, Button, Modal, Alert } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
+import { login, userState } from '../../features/user/userSlice';
 import axios from 'axios';
 
 const Login = () => {
+    const user = useSelector(userState);
+    const dispatch = useDispatch();
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
+    console.log(user)
     return (
         <>
             <Formik
@@ -44,6 +48,7 @@ const Login = () => {
                         .then(res => {
                             const token = res.data.token;
                             localStorage.setItem('token', token);
+                            dispatch(login(token));
                             resetForm();
 
                         }).catch(error => {
