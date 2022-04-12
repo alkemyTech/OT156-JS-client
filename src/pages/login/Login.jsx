@@ -12,7 +12,7 @@ const Login = () => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    console.log(user)
+
     return (
         <>
             <Formik
@@ -49,6 +49,7 @@ const Login = () => {
                             const token = res.data.token;
                             localStorage.setItem('token', token);
                             dispatch(login(token));
+
                             resetForm();
 
                         }).catch(error => {
