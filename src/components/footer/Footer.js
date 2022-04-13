@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
+import { AiOutlineFacebook,AiOutlineInstagram } from 'react-icons/ai'
+import { FiTwitter } from 'react-icons/fi'
 
 const Footer = () => {
   const [info, setInfo] = useState({});
@@ -44,8 +46,8 @@ const Footer = () => {
             </section>
           </div>
           <hr />
-            <div className='social-media justify-content-center'>
-              
+            <div className='social-media d-flex justify-content-center mr-3'>
+            <AiOutlineFacebook size={30}/> <AiOutlineInstagram size={30}/> <FiTwitter size={30}/>
             </div>
             <section className='disclamer d-flex justify-content-center'>
               2021 by Alkemy. All Rights Reserved.
