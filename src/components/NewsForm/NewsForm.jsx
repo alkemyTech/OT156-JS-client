@@ -6,11 +6,22 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { postRequest } from '../../services/apiService';
 import axios from 'axios';
 
-const TestimonialsForm = ({ testimony }) => {
-    const [name, setName] = useState(testimony ? testimony.name : '');
-    const [image, setImage] = useState(testimony ? testimony.image : '');
-    const [content, setContent] = useState(testimony ? testimony.content : '');
+const NewsForm = ({ newsobject }) => {
+    const [name, setName] = useState(newsobject ? newsobject.name : '');
+    const [image, setImage] = useState(newsobject ? newsobject.image : '');
+    const [content, setContent] = useState(newsobject ? newsobject.content : '');
+    const [categoryId, setCategoryId] = useState(newsobject ? newsobject.categoryId : 1);
     const [errors, seterrors] = useState({});
+    const categories = [{
+        id: 1,
+        name: 'Noticias'
+    }, {
+        id: 2,
+        name: 'Eventos'
+    }, {
+        id: 3,
+        name: 'Deportes'
+    }];
 
     const handleName = (e) => {
         if (e.target.value.length > 3) seterrors({ ...errors, name: null });
@@ -28,6 +39,11 @@ const TestimonialsForm = ({ testimony }) => {
         setContent(data);
     }
 
+    const handleCategoryId = (e) => {
+        seterrors({ ...errors, categoryId: null });
+        setCategoryId(e.target.value);
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (name.length < 3) seterrors(prev => ({ ...prev, name: 'El nombre debe contener al menos 3 caracteres' }));
@@ -38,14 +54,15 @@ const TestimonialsForm = ({ testimony }) => {
         /* TODO
         añadir envío de imagen a endpoint para subir archivos al servidor*/
 
-        const testimonial = {
+        const news = {
             name,
             image: image.name,
-            content
+            content,
+            categoryId
         }
-        if (testimony) {
 
-            axios.patch(`http://localhost:3000/testimonials/${testimony.id}`, testimonial)
+        if (newsobject) {
+            axios.put(`http://localhost:3000/news/${newsobject.id}`, news)
                 .then(res => {
                     console.log(res);
                 })
@@ -53,8 +70,7 @@ const TestimonialsForm = ({ testimony }) => {
                     console.log(err);
                 })
         } else {
-
-            postRequest('http://localhost:3000/testimonials', testimonial)
+            postRequest('http://localhost:3000/news', news)
                 .then(res => {
                     setName('');
                     setImage(null);
@@ -71,7 +87,7 @@ const TestimonialsForm = ({ testimony }) => {
         <Form onSubmit={handleSubmit} className="container-sm mt-5 border border-1 rounded-3 p-3">
 
             <Form.Group className="mb-3">
-                <Form.Label>Name</Form.Label>
+                <Form.Label>Titulo</Form.Label>
                 <Form.Control
                     type='text'
                     name='name'
@@ -87,6 +103,20 @@ const TestimonialsForm = ({ testimony }) => {
                 handleImage={handleImage}
             />
             {errors.image && <Alert variant="danger">{errors.image}</Alert>}
+
+            <Form.Label>Categoría</Form.Label>
+
+            <Form.Select 
+            aria-label="Select Category"
+            onChange={handleCategoryId}
+            value={categoryId}
+            >
+                {categories.map(category => (
+                    <option key={category.id} value={category.id}>{category.name}</option>
+                ))}
+            </Form.Select>
+            <br/>
+
             <Form.Group className="mb-3">
                 <CKEditor
                     editor={ClassicEditor}
@@ -97,13 +127,13 @@ const TestimonialsForm = ({ testimony }) => {
             {errors.content && <Alert variant="danger">{errors.content}</Alert>}
 
             {
-                testimony ?
+                newsobject ?
                     <Button variant="primary" type="submit">
-                        Actualizar Testimonio
+                        Actualizar Novedad
                     </Button>
                     :
                     <Button variant="primary" type="submit">
-                        Crear Testimonio
+                        Crear Novedad
                     </Button>
             }
 
@@ -111,5 +141,4 @@ const TestimonialsForm = ({ testimony }) => {
     );
 }
 
-
-export default TestimonialsForm;
+export default NewsForm;
