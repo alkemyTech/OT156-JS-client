@@ -48,7 +48,7 @@ const Login = () => {
                         .then(res => {
                             const token = res.data.token;
                             localStorage.setItem('token', token);
-                            dispatch(login(token));
+                            dispatch(login(res.data));
 
                             resetForm();
 
