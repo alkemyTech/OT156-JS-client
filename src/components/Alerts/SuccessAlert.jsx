@@ -17,9 +17,10 @@ export default function SuccessAlert({ title }) {
         },
       });
     };
-
+  
     return (
-      <div className="successRoot" onClick={showAlert()}>
+      <div className="successRoot">
+        <button onClick={() => showAlert()}>Alert</button>
         <SweetAlert />
       </div>
     );

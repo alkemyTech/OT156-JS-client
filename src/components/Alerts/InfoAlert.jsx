@@ -19,7 +19,8 @@ export default function InfoAlert({ title }) {
   };
 
   return (
-    <div onClick={showAlert()}>
+    <div>
+      <button onClick={() => showAlert()}>Alert</button>
       <SweetAlert />
     </div>
   );
