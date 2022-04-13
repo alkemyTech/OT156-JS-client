@@ -1,19 +1,8 @@
 import React from 'react';
-import { useState } from 'react';
 import { Formik, ErrorMessage } from 'formik';
-import { Form, Button, Modal, Alert } from 'react-bootstrap';
-import { useSelector, useDispatch } from 'react-redux';
-import { login, userState } from '../../features/user/userSlice';
-import axios from 'axios';
-import { useNavigate } from "react-router-dom";
-const Login = () => {
-    const navigate = useNavigate();
-    const user = useSelector(userState);
-    const dispatch = useDispatch();
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+import { Form, Button } from 'react-bootstrap';
 
+const Login = () => {
     return (
         <>
             <Formik
@@ -21,13 +10,14 @@ const Login = () => {
                     email: '',
                     password: ''
                 }}
+
                 validate={(values) => {
                     let errores = {};
                     if (!values.email) {
                         errores.email = 'Ingresa un email'
                     } else if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(values.email)) {
-                        errores.email = 'Ingresa un email válido'
-                    }
+                        errores.email = 'Ingresa un email válido'}
+
                     if (!values.password) {
                         errores.password = 'Ingrese su contraseña'
                     } else if (values.password.length < 6) {
@@ -35,27 +25,19 @@ const Login = () => {
                     }
                     return errores;
                 }}
+
                 onSubmit={(values, { resetForm }) => {
                     const { email, password } = values
                     const data = {
                         email,
                         password
                     };
-                    axios.post('http://localhost:3000/auth/login', data)
-                        .then(res => {
-                            const token = res.data.token;
-                            localStorage.setItem('token', token);
-                            dispatch(login(res.data));
-                            resetForm();
-                            navigate('/');
-
-                        }).catch(error => {
-                            handleShow()
-                        });
+                    resetForm();
                 }}>
-                {({ errors, handleChange, values, handleBlur, handleSubmit }) => (
+
+                {({ errors, handleChange, values, handleBlur, handleSubmit}) => (
                     <Form onSubmit={handleSubmit} className="container-sm mt-5 border border-1 rounded-3 p-3">
-                        <Form.Group className="mb-3" >
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Email</Form.Label>
                             <Form.Control
                                 type='email'
@@ -72,7 +54,8 @@ const Login = () => {
                                 )} />
                             </Form.Text>
                         </Form.Group>
-                        <Form.Group className="mb-3" >
+
+                        <Form.Group className="mb-3" controlId="formBasicEmail">
                             <Form.Label>Contraseña</Form.Label>
                             <Form.Control
                                 type='password'
@@ -95,19 +78,8 @@ const Login = () => {
                     </Form>
                 )}
             </Formik>
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Error de Logueo</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Alert variant="danger" >
-                        <p>
-                            El Email o la contraseña no son correctos.
-                        </p>
-                    </Alert>
-                </Modal.Body>
-            </Modal>
         </>
     );
 }
+
 export default Login;

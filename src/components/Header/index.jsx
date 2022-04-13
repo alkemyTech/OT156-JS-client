@@ -7,17 +7,13 @@ const Header = () => {
   const [result, setResult] = useState({});
 
   const getData = async () => {
-    try {
-      const res = await axios.get('http://localhost:4000/organizations/1/public');
-      const data = await res.data;
-      setResult(data);
-    } catch (error) {
-      console.log(error);
-    }
+    const res = await axios.get('http://localhost:3000/organizations/1/public');
+    const data = await res.data;
+    setResult(data);
   };
 
   useEffect(() => {
-    getData().catch(null);
+    getData();
   }, []);
 
   return (
