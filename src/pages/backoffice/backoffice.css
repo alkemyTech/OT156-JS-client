@@ -1,0 +1,83 @@
+.backoffice {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 100%;
+    background-color: #edf2f7;
+    justify-items: center;
+    min-height: calc(100vh - 56px);
+
+}
+
+.backoffice__cardContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80%;
+    max-width: 220px;
+    height: 100%;
+    padding: 16px;
+}
+
+.backoffice__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: white;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+.backoffice__card>img {
+    height: 90px;
+    width: 90px;
+    margin-bottom: 30px;
+}
+
+.backoffice__card>a {
+    border-radius: 4px;
+    background-color: #319795;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    text-align: center;
+    text-decoration: none;
+    padding: 8px 32px;
+}
+
+.backoffice__card>a:hover {
+    background-color: #125352;
+    color: white;
+}
+
+.backoffice__card>h5 {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #319795;
+}
+
+@media (min-width: 500px) {
+    .backoffice{
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (min-width: 768px) {
+   .backoffice{
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+@media (min-width: 1024px) {
+    .backoffice{
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+   
