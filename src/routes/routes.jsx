@@ -7,6 +7,7 @@ import Login from '../pages/login/Login';
 import NewsCard from '../components/news/NewsCard';
 import Category from '../pages/category';
 import BackOffice from './../pages/backoffice/index';
+import Footer from '../components/footer/Footer';
 
 const AppRoutes = () => {
   return (
@@ -20,6 +21,7 @@ const AppRoutes = () => {
         <Route path="/category" element={<Category />} /> {/* TODO: ruta rol administrador */}
         <Route path="/category/:id" element={<Category />} />{/* TODO: ruta rol administrador */}
       </Routes>
+      <Footer/>
     </BrowserRouter>
   );
 };
