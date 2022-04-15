@@ -10,10 +10,11 @@ import Login from '../pages/login/Login';
 import NewsCard from '../components/news/NewsCard';
 import Category from '../pages/category';
 import BackOffice from './../pages/backoffice/index';
+import RegistrationForm from './../pages/register/RegistrationForm';
 
 const AppRoutes = () => {
   const dispatch = useDispatch();
-  
+
   useEffect(() => {
     getUserByToken().then(res => {
       dispatch(login(res));
@@ -29,6 +30,7 @@ const AppRoutes = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<RegistrationForm />} />
         <Route path="/news" element={<NewsCard />} />
         <Route path="/backoffice" element={<BackOffice />} /> {/* TODO: ruta rol administrador */}
         <Route path="/category" element={<Category />} /> {/* TODO: ruta rol administrador */}
