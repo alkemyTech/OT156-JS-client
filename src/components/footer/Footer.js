@@ -7,9 +7,6 @@ import { FiTwitter } from 'react-icons/fi'
 const Footer = () => {
   const [info, setInfo] = useState({});
 
-
-  //const [result, setResult] = useState({});
-
   const getData = async () => {
     const res = await axios.get('http://localhost:3000/organizations/1/public');
     const data = await res.data;
@@ -27,18 +24,18 @@ const Footer = () => {
   return (
     <footer className='container bg-light ' >
         <hr />
-        <section className='row '>
+        <section className=''>
           <div className='link d-flex justify-content-around '>
-            <section className='left-section d-flex justify-content-start '>
+            <section className=' d-flex left-section align-items-center '>
               <Link className='p-3 text-decoration-none' to={"/news"}>Noticias</Link>
               <Link className='p-3 text-decoration-none' to={"/news"}>Actividades</Link>
               <Link className='p-3 text-decoration-none' to={"/news"}>Novedades</Link>
             </section>
-            <section className='logoSection d-flex justify-content-center'>
+            <section className='logoSection'>
               <img src={info?.image} alt={info?.name} width="40px" height="40px"/>
             </section>
-            <section className='rigth-section d-flex justify-content-end'>
-              <div className='d-flex justify-content-around'> 
+            <section className='rigth-section '>
+              <div className='d-flex justify-content-evenly'> 
                 <Link className='p-3 text-decoration-none' to={"/news"}>Testimonio</Link>
                 <Link className='p-3 text-decoration-none' to={"/news"}>Nosotros</Link>
               </div>
