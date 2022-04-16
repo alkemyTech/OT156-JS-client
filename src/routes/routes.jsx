@@ -12,6 +12,7 @@ import Category from '../pages/category';
 import BackOffice from './../pages/backoffice/index';
 import RegistrationForm from './../pages/register/RegistrationForm';
 import NewsBackoffice from './../pages/backoffice/news';
+import CategoriesBackOffice from '../pages/backoffice/categories';
 
 const AppRoutes = () => {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ const AppRoutes = () => {
         <Route path="/news" element={<NewsCard />} />
         <Route path="/backoffice" element={<BackOffice />} /> {/* TODO: ruta rol administrador */}
         <Route path="/backoffice/news" element={<NewsBackoffice />} /> {/* TODO: ruta rol administrador */}
+        <Route path="/backoffice/categories" element={<CategoriesBackOffice />} /> {/* TODO: ruta rol administrador */}
         <Route path="/category" element={<Category />} /> {/* TODO: ruta rol administrador */}
         <Route path="/category/:id" element={<Category />} />{/* TODO: ruta rol administrador */}
       </Routes>
