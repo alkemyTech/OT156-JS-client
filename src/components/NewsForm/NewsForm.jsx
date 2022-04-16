@@ -1,16 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import FileUploader from './FileUploader';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { postRequest } from '../../services/apiService';
 import axios from 'axios';
+import GetNewsById from './../../services/getNewsById';
 
-const NewsForm = ({ newsobject }) => {
-    const [name, setName] = useState(newsobject ? newsobject.name : '');
-    const [image, setImage] = useState(newsobject ? newsobject.image : '');
-    const [content, setContent] = useState(newsobject ? newsobject.content : '');
-    const [categoryId, setCategoryId] = useState(newsobject ? newsobject.categoryId : 1);
+const NewsForm = ({ id,handleEdit }) => {
+    const { news } = GetNewsById({ id });
+    const [name, setName] = useState('');
+    const [image, setImage] = useState('');
+    const [content, setContent] = useState('');
+    const [categoryId, setCategoryId] = useState();
     const [errors, seterrors] = useState({});
     const categories = [{
         id: 1,
@@ -22,6 +24,14 @@ const NewsForm = ({ newsobject }) => {
         id: 3,
         name: 'Deportes'
     }];
+    useEffect(() => {
+        if (news.name) {
+            setName(news?.name);
+            setImage(news?.image);
+            setContent(news?.content);
+            setCategoryId(news?.categoryId);
+        }
+    }, [news]);
 
     const handleName = (e) => {
         if (e.target.value.length > 3) seterrors({ ...errors, name: null });
@@ -56,15 +66,16 @@ const NewsForm = ({ newsobject }) => {
 
         const news = {
             name,
-            image: image.name,
+            image: image.name??image,
             content,
             categoryId
         }
 
-        if (newsobject) {
-            axios.put(`http://localhost:3000/news/${newsobject.id}`, news)
+        if (news) {
+            axios.put(`http://localhost:3000/news/${id}`, news)
                 .then(res => {
-                    console.log(res);
+                    seterrors({});
+                    handleEdit();
                 })
                 .catch(err => {
                     console.log(err);
@@ -99,23 +110,50 @@ const NewsForm = ({ newsobject }) => {
             </Form.Group>
             {errors.name && <Alert variant="danger">{errors.name}</Alert>}
 
-            <FileUploader
-                handleImage={handleImage}
-            />
+            {
+                image && typeof image === 'string' ?
+                    <>
+                        <Form.Group className="mb-3">
+                            <Form.Label>Imagen</Form.Label>
+                            <Form.Control
+                                type='text'
+                                name='image'
+                                placeholder='Imagen'
+                                id='image'
+                                value={image}
+                            />
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <button
+                                className="btn btn-danger"
+                                onClick={() => setImage(null)}
+                            >Cambiar Imagen</button>
+                        </Form.Group>
+
+                    </>
+
+                    :
+                    <FileUploader
+                        handleImage={handleImage}
+                        image={image}
+                    />
+
+            }
+
             {errors.image && <Alert variant="danger">{errors.image}</Alert>}
 
             <Form.Label>Categoría</Form.Label>
 
-            <Form.Select 
-            aria-label="Select Category"
-            onChange={handleCategoryId}
-            value={categoryId}
+            <Form.Select
+                aria-label="Select Category"
+                onChange={handleCategoryId}
+                value={categoryId}
             >
                 {categories.map(category => (
                     <option key={category.id} value={category.id}>{category.name}</option>
                 ))}
             </Form.Select>
-            <br/>
+            <br />
 
             <Form.Group className="mb-3">
                 <CKEditor
@@ -127,7 +165,7 @@ const NewsForm = ({ newsobject }) => {
             {errors.content && <Alert variant="danger">{errors.content}</Alert>}
 
             {
-                newsobject ?
+                news ?
                     <Button variant="primary" type="submit">
                         Actualizar Novedad
                     </Button>

@@ -7,6 +7,7 @@ const FileUploader = ({ handleImage }) => {
             <Form.Control
                 type="file"
                 onChange={handleImage}
+                name="image"
             />
         </Form.Group>
 
