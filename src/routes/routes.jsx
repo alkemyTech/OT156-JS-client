@@ -10,6 +10,7 @@ import Login from '../pages/login/Login';
 import NewsCard from '../components/news/NewsCard';
 import Category from '../pages/category';
 import BackOffice from './../pages/backoffice/index';
+import Footer from '../components/footer/Footer';
 import RegistrationForm from './../pages/register/RegistrationForm';
 import NewsBackoffice from './../pages/backoffice/news';
 import CategoriesBackOffice from '../pages/backoffice/categories';
@@ -40,6 +41,7 @@ const AppRoutes = () => {
         <Route path="/category" element={<Category />} /> {/* TODO: ruta rol administrador */}
         <Route path="/category/:id" element={<Category />} />{/* TODO: ruta rol administrador */}
       </Routes>
+      <Footer/>
     </BrowserRouter>
   );
 };

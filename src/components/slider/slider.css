@@ -36,12 +36,12 @@
 .slide {
   opacity: 0;
   transition-duration:  1s ease;
-  transform: scale(0.98);
+  transform: scale(0.9);
 }
 .slide.active{
   opacity: 1;
   transition-duration: 1s;
-  transform: scale(1);
+  transform: scale(0.97);
 }
 .right-arrow:hover, .left-arrow:hover{
   color: darkgoldenrod;
