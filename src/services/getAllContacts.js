@@ -21,7 +21,7 @@ const GetAllContacts = () => {
         fetchData();
     }, [refresh]);
 
-    return { news, loading, error,setRefresh };
+    return { contacts, loading, error,setRefresh };
 }
 
 export default GetAllContacts;
