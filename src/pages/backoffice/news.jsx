@@ -1,5 +1,5 @@
 import './news.css'
-import GetAllNews from './../../services/getAllNews';
+import { GetAllNews } from './../../services/news';
 import { Table } from "react-bootstrap";
 import { useState } from 'react';
 import NewsForm from '../../components/NewsForm/NewsForm';
