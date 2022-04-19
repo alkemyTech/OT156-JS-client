@@ -96,7 +96,7 @@ const CategoriesBackOffice = () => {
             )}
             {showModalDelete && <div className="modalDelete">
                 <div className="modalDelete__container">
-                    <h3>Está seguro de eliminar la novedad?</h3>
+                    <h3>Está seguro de eliminar la Categoria?</h3>
                     <div className="modalDelete__container__buttons">
                         <button className="btn btn-success" onClick={() => setShowModalDelete(false)}>No, Volver</button>
                         <button className="btn btn-danger" onClick={handleDelete}>Si, Eliminar</button>
