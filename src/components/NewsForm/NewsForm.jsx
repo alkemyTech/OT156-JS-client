@@ -5,25 +5,18 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { postRequest } from '../../services/apiService';
 import axios from 'axios';
-import GetNewsById from './../../services/getNewsById';
+import { GetNewsById } from './../../services/news';
+import { GetAllCategories } from './../../services/categories';
 
-const NewsForm = ({ id,handleEdit }) => {
+const NewsForm = ({ id, handleEdit }) => {
     const { news } = GetNewsById({ id });
     const [name, setName] = useState('');
     const [image, setImage] = useState('');
     const [content, setContent] = useState('');
     const [categoryId, setCategoryId] = useState();
     const [errors, seterrors] = useState({});
-    const categories = [{
-        id: 1,
-        name: 'Noticias'
-    }, {
-        id: 2,
-        name: 'Eventos'
-    }, {
-        id: 3,
-        name: 'Deportes'
-    }];
+    const categories = GetAllCategories();
+
     useEffect(() => {
         if (news.name) {
             setName(news?.name);
@@ -66,7 +59,7 @@ const NewsForm = ({ id,handleEdit }) => {
 
         const news = {
             name,
-            image: image.name??image,
+            image: image.name ?? image,
             content,
             categoryId
         }
@@ -149,7 +142,7 @@ const NewsForm = ({ id,handleEdit }) => {
                 onChange={handleCategoryId}
                 value={categoryId}
             >
-                {categories.map(category => (
+                {categories.categories.map(category => (
                     <option key={category.id} value={category.id}>{category.name}</option>
                 ))}
             </Form.Select>
