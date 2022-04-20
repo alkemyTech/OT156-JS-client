@@ -4,6 +4,7 @@ import NewsCard from '../../components/news/NewsCard';
 import HomeTitle from './HomeTitle';
 import { dataNews } from './dataNews';
 import './home.css';
+import News from './../../components/news/News';
 
 const Home = ({ welcome, news }) => {
   const [data, setData] = useState({ welcome: '', news: [] });
@@ -19,14 +20,7 @@ const Home = ({ welcome, news }) => {
     <div className="layout">
       <HomeTitle text={data.welcome} />
       <Slider />
-      <div className="news-container">
-        <h2>Novedades</h2>
-        <div className="news-container-inner">
-          {data.news?.map((news, index) => {
-            return <NewsCard data={news} key={index} />;
-          })}
-        </div>
-      </div>
+      <News/>
     </div>
   );
 };
