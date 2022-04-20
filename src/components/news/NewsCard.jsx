@@ -1,26 +1,34 @@
 import React from 'react';
 import './newsCard.css';
-
+import { Link } from 'react-router-dom';
 const NewsCard = (props) => {
 
     const { id, imageNews, titleNews, textNews } = props;
 
     return (
         <article className="news-post">
-            <a href='#'>
-                <div className="image__top" style={{backgroundImage: `url('${imageNews}')`}}> 
-                
+            <Link to={`/novedad/${id}`}>
+                <div className="image__top" style={{ backgroundImage: `url('${imageNews}')` }}>
+
                 </div>
-            </a>
-            <h4 className='title'>
-                <a>{titleNews}</a>
-            </h4>
+            </Link>
+
+            <div className="title">
+                <Link to={`/novedad/${id}`}>
+
+                    {titleNews}
+
+                </Link>
+            </div>
+
             <div className='post-content' >
                 <div className='post-content-inner' dangerouslySetInnerHTML={{ __html: textNews }}>
                 </div>
             </div>
             <div className='leer-mas'>
-                <a href='#' > Leer mas. </a>
+                <Link to={`/novedad/${id}`}>
+                    Leer mas.
+                </Link>
             </div>
         </article>
     )
