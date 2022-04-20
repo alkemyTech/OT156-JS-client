@@ -14,6 +14,7 @@ import Footer from '../components/footer/Footer';
 import RegistrationForm from './../pages/register/RegistrationForm';
 import NewsBackoffice from './../pages/backoffice/news';
 import CategoriesBackOffice from '../pages/backoffice/categories';
+import Entry from '../pages/news/entry';
 
 const AppRoutes = () => {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ const AppRoutes = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<RegistrationForm />} />
         <Route path="/news" element={<NewsCard />} />
+        <Route path="/novedad/:id" element={<Entry />} />
         <Route path="/backoffice" element={<BackOffice />} /> {/* TODO: ruta rol administrador */}
         <Route path="/backoffice/news" element={<NewsBackoffice />} /> {/* TODO: ruta rol administrador */}
         <Route path="/backoffice/categories" element={<CategoriesBackOffice />} /> {/* TODO: ruta rol administrador */}
