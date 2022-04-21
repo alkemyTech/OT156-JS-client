@@ -7,13 +7,13 @@ import { getUserByToken } from '../services/authByToken';
 import Header from '../components/Header';
 import Home from '../pages/home/Home';
 import Login from '../pages/login/Login';
-import NewsCard from '../components/news/NewsCard';
 import Category from '../pages/category';
 import BackOffice from './../pages/backoffice/index';
 import Footer from '../components/footer/Footer';
 import RegistrationForm from './../pages/register/RegistrationForm';
 import NewsBackoffice from './../pages/backoffice/news';
 import CategoriesBackOffice from '../pages/backoffice/categories';
+import News from '../components/news/News';
 import Entry from '../pages/news/entry';
 
 const AppRoutes = () => {
@@ -35,7 +35,7 @@ const AppRoutes = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<RegistrationForm />} />
-        <Route path="/news" element={<NewsCard />} />
+        <Route path="/news" element={<News />} />
         <Route path="/novedad/:id" element={<Entry />} />
         <Route path="/backoffice" element={<BackOffice />} /> {/* TODO: ruta rol administrador */}
         <Route path="/backoffice/news" element={<NewsBackoffice />} /> {/* TODO: ruta rol administrador */}
