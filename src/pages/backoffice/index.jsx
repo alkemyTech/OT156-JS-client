@@ -1,3 +1,4 @@
+import React from "react"
 import './backoffice.css'
 import Actividades from '../../assets/backoffice/actividades.svg'
 import Categorias from '../../assets/backoffice/categorias.svg'
