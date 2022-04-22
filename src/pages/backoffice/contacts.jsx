@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './contacts.css'
 import GetAllContacts from './../../services/getAllContacts';
 import { Table } from "react-bootstrap";
@@ -8,13 +8,19 @@ import axios from 'axios';
 import { Link } from "react-router-dom";
 
 const ContactsBackoffice = () => {
-    const { contacts, setContacts } = GetAllContacts();
-    const [showTable, setShowTable] = useState(true);
-    const [sendComplete, setSendComplete] = useState({
+    const [ contacts, setContacts ] = useState({});
+    const [ showTable, setShowTable] = useState(true);
+    const [ sendComplete, setSendComplete] = useState({
         error: false,
         success: false,
         msg: '',
     });
+    useEffect(() => {
+      setContacts(GetAllContacts());    
+      return () => {
+        
+      }
+    }, [])    
 
     return (
         <>
@@ -68,14 +74,4 @@ const ContactsBackoffice = () => {
         </>
     );
 }
-//
-
-
-const NewsBackoffice = () => {
-   
-}
-
-
-//
-
 export default ContactsBackoffice
