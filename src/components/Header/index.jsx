@@ -21,7 +21,7 @@ const Header = () => {
   }, []);
 
   return (
-    <Navbar bg="dark" variant="dark">
+    <Navbar>
       <Container>
         <Navbar.Brand href="#home">
           <img
@@ -33,12 +33,20 @@ const Header = () => {
           />{' '}
           {result.name}
         </Navbar.Brand>
-        <Nav className="me-auto">
+        <Nav className="mx-auto">
           {result?.navLink?.map((nav, index) => (
-            <Nav.Link key={index} href={nav}>
-              <Link to={`./${nav.link}`}>{nav.name}</Link>
+            <Nav.Link key={index} href={nav.link} >
+              <Link style={{ textDecoration: "none",  }} to={`${nav.link}`}>{nav.name}</Link>
             </Nav.Link>
           ))}
+        </Nav>
+        <Nav className="">
+          <Nav.Link className="block-example rounded mb-0 border border-primary" href="/login">
+            <Link style={{ textDecoration: "none" }} to="/login">Log In</Link>
+          </Nav.Link>
+          <Nav.Link className="block-example rounded mb-0 border border-primary bg-primary mx-2" href="/register">
+            <Link style={{ textDecoration: "none", color: "white" }} to="/register">Registrate</Link>
+          </Nav.Link>
         </Nav>
       </Container>
     </Navbar>
