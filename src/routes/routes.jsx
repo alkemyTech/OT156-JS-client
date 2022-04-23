@@ -10,6 +10,7 @@ import Footer from '../components/footer/Footer';
 import RegistrationForm from './../pages/register/RegistrationForm';
 import NewsBackoffice from './../pages/backoffice/news';
 import CategoriesBackOffice from '../pages/backoffice/categories';
+import TestimonialsBackOffice from '../pages/backoffice/testimonials';
 import News from '../components/news/News';
 import Entry from '../pages/news/entry';
 
@@ -27,6 +28,7 @@ const AppRoutes = () => {
         <Route path="/backoffice" element={<BackOffice />} /> {/* TODO: ruta rol administrador */}
         <Route path="/backoffice/news" element={<NewsBackoffice />} /> {/* TODO: ruta rol administrador */}
         <Route path="/backoffice/categories" element={<CategoriesBackOffice />} /> {/* TODO: ruta rol administrador */}
+        <Route path="/backoffice/testimonials" element={<TestimonialsBackOffice />} /> {/* TODO: ruta rol administrador */}
         <Route path="/category" element={<Category />} /> {/* TODO: ruta rol administrador */}
         <Route path="/category/:id" element={<Category />} />{/* TODO: ruta rol administrador */}
       </Routes>
