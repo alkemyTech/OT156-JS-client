@@ -63,10 +63,34 @@
 .backButton{
     width: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: start;
-    padding: 20px 0 0 20px;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px 20px 0 20px;
 }
+.backButton>button{
+    border-radius: 4px;
+    background-color: #2c9b39;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    text-align: center;
+    text-decoration: none;
+    padding: 8px 32px;
+}
+.backButton>button:hover{
+    background-color: #165a20;
+}
+
+.backButton>.cancelBtn{
+    background-color: #9f3a3a;
+}
+.backButton>.cancelBtn:hover{
+    background-color: #6f0a0a;
+}
+
 .backButton>div>a {
     border-radius: 4px;
     background-color: #319795;

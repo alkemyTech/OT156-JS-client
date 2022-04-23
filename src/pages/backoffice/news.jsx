@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 const NewsBackoffice = () => {
     const { news, setRefresh } = GetAllNews();
     const [showEdit, setShowEdit] = useState(false);
+    const [showCreate, setShowCreate] = useState(false);
     const [id, setId] = useState(null);
     const [showTable, setShowTable] = useState(true);
     const [showModalDelete, setShowModalDelete] = useState(false);
@@ -87,6 +88,39 @@ const NewsBackoffice = () => {
 
     }
 
+    const handleNewNews = () => {
+        setShowCreate(true);
+        setShowTable(false);
+    }
+
+    const handleCreate = () => {
+        setSendComplete({
+            error: false,
+            success: true,
+            msg: 'Novedad Creada Correctamente.',
+        });
+        setShowCreate(false);
+        setShowTable(true);
+        setRefresh(true);
+        setTimeout(() => {
+            setSendComplete({
+                error: false,
+                success: false,
+                msg: 'Novedad Creada Correctamente.',
+            });
+        }, 2000);
+    }
+
+    const handleBack = () => {
+        setShowEdit(false);
+        setShowCreate(false);
+        setShowTable(true);
+        setId(null);
+        setRefresh(true);
+        setShowModalDelete(false);
+    }
+
+
     return (
         <>
             <div className="tableContainer">
@@ -94,6 +128,12 @@ const NewsBackoffice = () => {
                     <div>
                         <Link to='/backoffice'>🏠 Backoffice</Link>
                     </div>
+
+                    {
+                        showCreate || showEdit
+                            ? <button className='cancelBtn' onClick={handleBack}>✖ Cancelar</button>
+                            : <button onClick={handleNewNews}>📰 Crear Novedad</button>
+                    }
                 </div>
                 <h3>Novedades</h3>
                 {
@@ -141,6 +181,12 @@ const NewsBackoffice = () => {
                         id={id}
                         handleEdit={handleEdit}
                     />}
+
+                {showCreate &&
+                    <NewsForm
+                        handleCreate={handleCreate}
+                    />
+                }
                 {sendComplete.success && (
                     <SuccessAlert title={sendComplete.msg}>
 

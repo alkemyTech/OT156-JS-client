@@ -8,7 +8,7 @@ import axios from 'axios';
 import { GetNewsById } from './../../services/news';
 import { GetAllCategories } from './../../services/categories';
 
-const NewsForm = ({ id, handleEdit }) => {
+const NewsForm = ({ id, handleEdit,handleCreate }) => {
     const { news } = GetNewsById({ id });
     const [name, setName] = useState('');
     const [image, setImage] = useState('');
@@ -16,7 +16,6 @@ const NewsForm = ({ id, handleEdit }) => {
     const [categoryId, setCategoryId] = useState();
     const [errors, seterrors] = useState({});
     const categories = GetAllCategories();
-
     useEffect(() => {
         if (news.name) {
             setName(news?.name);
@@ -57,15 +56,15 @@ const NewsForm = ({ id, handleEdit }) => {
         /* TODO
         añadir envío de imagen a endpoint para subir archivos al servidor*/
 
-        const news = {
+        const newNews = {
             name,
             image: image.name ?? image,
             content,
             categoryId
         }
 
-        if (news) {
-            axios.put(`http://localhost:3000/news/${id}`, news)
+        if (news.length !== 0) {
+            axios.put(`http://localhost:3000/news/${id}`, newNews)
                 .then(res => {
                     seterrors({});
                     handleEdit();
@@ -74,12 +73,13 @@ const NewsForm = ({ id, handleEdit }) => {
                     console.log(err);
                 })
         } else {
-            postRequest('http://localhost:3000/news', news)
+            postRequest('http://localhost:3000/news', newNews)
                 .then(res => {
                     setName('');
                     setImage(null);
                     setContent('');
                     seterrors({});
+                    handleCreate();
                 })
                 .catch(err => {
                     console.log(err);
@@ -158,7 +158,7 @@ const NewsForm = ({ id, handleEdit }) => {
             {errors.content && <Alert variant="danger">{errors.content}</Alert>}
 
             {
-                news ?
+                news.length !== 0 ?
                     <Button variant="primary" type="submit">
                         Actualizar Novedad
                     </Button>
