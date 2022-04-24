@@ -19,6 +19,7 @@ import Nosotros from '../pages/nosotros/nosotros';
 import Actividades from '../pages/actividades/actividades';
 import Actividad from '../pages/actividad/actividad';
 import Testimonios from '../pages/testimonios/testimonios';
+import ContactForm from '../components/contactForm/ContactForm';
 
 
 const AppRoutes = () => {
