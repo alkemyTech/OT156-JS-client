@@ -4,10 +4,11 @@ import NewsCard from '../../components/news/NewsCard';
 import HomeTitle from './HomeTitle';
 import { dataNews } from './dataNews';
 import './home.css';
-import News from './../../components/news/News';
+import { GetAllNews } from '../../services/news';
 
-const Home = ({ welcome, news }) => {
-  const [data, setData] = useState({ welcome: '', news: [] });
+const Home = ({ welcome }) => {
+  const [data, setData] = useState({ welcome: '' });
+  const { news } = GetAllNews();
 
   useEffect(() => {
     setData({
@@ -20,7 +21,24 @@ const Home = ({ welcome, news }) => {
     <div className="layout">
       <HomeTitle text={data.welcome} />
       <Slider />
-      <News/>
+      <main className='news'>
+            <h1>Ultimas Novedades</h1>
+            <div className="news__container">
+                {
+                    news.slice(-3).reverse().map(item => {
+                        return (
+                            <NewsCard
+                                key={item.id}
+                                id={item.id}
+                                titleNews={item.name}
+                                imageNews={item.image}
+                                textNews={item.content}
+                            />
+                        )
+                    })
+                }
+            </div>
+        </main>
     </div>
   );
 };

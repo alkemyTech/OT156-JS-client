@@ -1,0 +1,31 @@
+.actividades__container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 32px;
+    padding: 16px;
+    max-width: 1200px;
+}
+
+.actividades__container article {
+    flex: 1 1 600px;
+}
+
+.actividades {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.actividades h1 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #03302f;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    font-family: 'Yeseva One', cursive;
+    letter-spacing: 2px;
+    margin: 24px auto;
+}
+
