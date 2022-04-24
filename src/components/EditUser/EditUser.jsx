@@ -1,21 +1,36 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
+import { postRequest } from '../../services/apiService';
 import axios from 'axios';
+import { GetUserById } from './../../services/users';
 
-const EditUser = ({ user, role }) => {
-    const [firstName, setFirstName] = useState(user.firstName);
-    const [lastName, setLastName] = useState(user.lastName);
-    const [email, setEmail] = useState(user.email);
-    const [roleId, setRoleId] = useState(user.roleId);
+const EditUser = ({ id, handleEdit, handleCreate ,role }) => {
+    const token = localStorage.getItem("token");
+    const { user } = GetUserById({ id });
+    const [name, setName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [roleId, setRoleId] = useState(2);
+
+    console.log(user)
+
     const [errors, seterrors] = useState({});
+    useEffect(() => {
+        if (user?.firstName) {
+            setName(user?.firstName);
+            setLastName(user?.lastName);
+            setEmail(user?.email);
+            setRoleId(user?.roleId);
+        }
+    }, [user]);
 
-    const handleFirstName = (e) => {
-        if (e.target.value.length > 3) seterrors({ ...errors, firstName: null });
-        setFirstName(e.target.value);
+    const handleName = (e) => {
+        if (e.target.value.length > 3) seterrors({ ...errors, name: null });
+        setName(e.target.value);
     }
 
     const handleLastName = (e) => {
-        if (e.target.value.length > 3) seterrors({ ...errors, lastName: null });
+        if (e.target.value.length > 3) seterrors({ ...errors, name: null });
         setLastName(e.target.value);
     }
 
@@ -32,26 +47,47 @@ const EditUser = ({ user, role }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        if (firstName.length < 3) seterrors(prev => ({ ...prev, firstName: 'El nombre debe contener al menos 3 caracteres' }));
+        if (name.length < 3) seterrors(prev => ({ ...prev, name: 'El nombre debe contener al menos 3 caracteres' }));
         if (lastName.length < 3) seterrors(prev => ({ ...prev, lastName: 'El apellido debe contener al menos 3 caracteres' }));
         if (!re.test(String(email).toLowerCase())) seterrors(prev => ({ ...prev, email: 'El email debe ser valido' }));
+        if (errors.name || errors.lastName || errors.email ) return;
 
-        if (errors.name) return;
+        /* TODO
+        añadir envío de imagen a endpoint para subir archivos al servidor*/
 
-        const user = {
-            firstName,
+        const newUser = {
+            firstName: name,
             lastName,
             email,
-            image: user.image,
-            roleId            
+            roleId
         }
-            axios.patch(`http://localhost:3000/users/${user.id}`, user)
+
+        if (user) {
+            axios.put(`http://localhost:3000/users/${id}`,
+                newUser ,
+                {
+                    headers: {
+                        Authorization: `${token}`
+                    }
+                })
                 .then(res => {
-                    console.log(res);
+                    seterrors({});
+                    handleEdit();
                 })
                 .catch(err => {
                     console.log(err);
                 })
+        } else {
+            postRequest('http://localhost:3000/users', newUser)
+                .then(res => {
+                    setName('');
+                    seterrors({});
+                    handleCreate();
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
     }
 
     return (
@@ -61,14 +97,14 @@ const EditUser = ({ user, role }) => {
                 <Form.Label>Nombre</Form.Label>
                 <Form.Control
                     type='text'
-                    name='firstName'
+                    name='name'
                     placeholder='Nombre'
-                    id='firstName'
-                    onChange={handleFirstName}
-                    value={firstName}
+                    id='name'
+                    onChange={handleName}
+                    value={name}
                 />
             </Form.Group>
-            {errors.firstName && <Alert variant="danger">{errors.firstName}</Alert>}
+            {errors.name && <Alert variant="danger">{errors.name}</Alert>}
 
             <Form.Group className="mb-3">
                 <Form.Label>Apellido</Form.Label>
@@ -107,10 +143,16 @@ const EditUser = ({ user, role }) => {
                 </Form.Group>
             }
 
-
-            <Button variant="primary" type="submit">
-                Actualizar Usuario
-            </Button>
+            {
+                user ?
+                    <Button variant="primary" type="submit">
+                        Actualizar Usuario
+                    </Button>
+                    :
+                    <Button variant="primary" type="submit">
+                        Crear Usuario
+                    </Button>
+            }
 
         </Form>
     );

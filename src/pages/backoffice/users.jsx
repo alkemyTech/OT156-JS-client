@@ -1,13 +1,12 @@
-import './news.css'
 import { useState } from 'react';
 import { Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import SuccessAlert from '../../components/Alerts/SuccessAlert';
-import { deleteTestimonials, GetAllTestimonials } from '../../services/testimonials';
-import TestimonialsForm from '../../components/TestimonialsForm/TestimonialsForm';
+import { deleteUsers, GetAllUsers  } from '../../services/users';
+import EditUser from '../../components/EditUser/EditUser';
 
-const TestimonialsBackOffice = () => {
-    const { testimonials, setRefresh } = GetAllTestimonials();
+const UsersBackOffice = () => {
+    const { users, setRefresh } = GetAllUsers();
     const [showEdit, setShowEdit] = useState(false);
     const [showCreate, setShowCreate] = useState(false);
     const [id, setId] = useState(null);
@@ -23,7 +22,7 @@ const TestimonialsBackOffice = () => {
         setSendComplete({
             error: false,
             success: true,
-            msg: 'Testimonio Actualizado Correctamente.',
+            msg: 'Ususario Actualizado Correctamente.',
         });
 
         setShowTable(true);
@@ -34,7 +33,7 @@ const TestimonialsBackOffice = () => {
             setSendComplete({
                 error: false,
                 success: false,
-                msg: 'Testimonio Actualizado Correctamente.',
+                msg: 'Ususario Actualizado Correctamente.',
             });
         }, 2000);
     }
@@ -50,11 +49,11 @@ const TestimonialsBackOffice = () => {
         setShowModalDelete(true);
     }
     const handleDelete = () => {
-        deleteTestimonials(id).then(res => {
+        deleteUsers(id).then(res => {
             setSendComplete({
                 error: false,
                 success: true,
-                msg: 'Testimonio Eliminado Correctamente.',
+                msg: 'Ususario Eliminado Correctamente.',
             });
 
             setId(null);
@@ -64,21 +63,21 @@ const TestimonialsBackOffice = () => {
                 setSendComplete({
                     error: false,
                     success: false,
-                    msg: 'Testimonio Eliminado Correctamente.',
+                    msg: 'Ususario Eliminado Correctamente.',
                 });
             }, 2000);
         }).catch(err => {
             setSendComplete({
                 error: true,
                 success: false,
-                msg: 'Error al eliminar el Testimonio.',
+                msg: 'Error al eliminar el Ususario.',
             });
 
             setTimeout(() => {
                 setSendComplete({
                     error: false,
                     success: false,
-                    msg: 'Error al eliminar el Testimonio.',
+                    msg: 'Error al eliminar el Ususario.',
                 });
             }, 2000);
         });
@@ -94,7 +93,7 @@ const TestimonialsBackOffice = () => {
         setSendComplete({
             error: false,
             success: true,
-            msg: 'Testimonio Creado Correctamente.',
+            msg: 'Ususario Creado Correctamente.',
         });
         setShowCreate(false);
         setShowTable(true);
@@ -103,7 +102,7 @@ const TestimonialsBackOffice = () => {
             setSendComplete({
                 error: false,
                 success: false,
-                msg: 'Testimonio Creado Correctamente.',
+                msg: 'Ususario Creado Correctamente.',
             });
         }, 2000);
     }
@@ -126,11 +125,10 @@ const TestimonialsBackOffice = () => {
                 </div>
                 {
                     showCreate || showEdit
-                        ? <button className='cancelBtn' onClick={handleBack}>✖ Cancelar</button>
-                        : <button onClick={handleNewTestimonial}>📰 Crear Testimonio</button>
+                        && <button className='cancelBtn' onClick={handleBack}>✖ Cancelar</button>
                 }
             </div>
-            <h3>Testimonios</h3>
+            <h3>Usuarios</h3>
             {
                     showTable &&
             <Table striped bordered hover>
@@ -138,25 +136,27 @@ const TestimonialsBackOffice = () => {
                     <tr>
                         <th>#</th>
                         <th>Nombre</th>
-                        <th>Contenido</th>
+                        <th>Apellido</th>
+                        <th>Email</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        testimonials?.map(testimonial => {
+                        users?.map(user => {
                             return (
-                                <tr key={testimonial.id}>
-                                    <td>{testimonial.id}</td>
-                                    <td>{testimonial.name}</td>
-                                    <td dangerouslySetInnerHTML={{ __html: testimonial.content }}></td>
+                                <tr key={user.id}>
+                                    <td>{user.id}</td>
+                                    <td>{user.firstName}</td>
+                                    <td>{user.lastName}</td>
+                                    <td>{user.email}</td>
                                     <td>
                                         <div className="table__buttons">
                                             <button
-                                                onClick={() => handleShowEdit(testimonial.id)}
+                                                onClick={() => handleShowEdit(user.id)}
                                                 className="btn btn-primary">Edit</button>
                                             <button
-                                                onClick={() => handleShowModalDelete(testimonial.id)}
+                                                onClick={() => handleShowModalDelete(user.id)}
                                                 className="btn btn-danger">Delete</button>
                                         </div>
                                     </td>
@@ -167,14 +167,16 @@ const TestimonialsBackOffice = () => {
                 </tbody>
             </Table>}
             {id && showEdit &&
-                <TestimonialsForm
+                <EditUser
                     id={id}
                     handleEdit={handleEdit}
+                    role={'admin'}
                 />}
 
             {showCreate &&
-                <TestimonialsForm
+                <EditUser
                     handleCreate={handleCreate}
+                    role={'admin'}
                 />
             }
 
@@ -185,7 +187,7 @@ const TestimonialsBackOffice = () => {
             )}
             {showModalDelete && <div className="modalDelete">
                 <div className="modalDelete__container">
-                    <h3>Está seguro de eliminar el testimonio?</h3>
+                    <h3>Está seguro de eliminar el Ususario?</h3>
                     <div className="modalDelete__container__buttons">
                         <button className="btn btn-success" onClick={() => setShowModalDelete(false)}>No, Volver</button>
                         <button className="btn btn-danger" onClick={handleDelete}>Si, Eliminar</button>
@@ -196,4 +198,4 @@ const TestimonialsBackOffice = () => {
     );
 }
 
-export default TestimonialsBackOffice;
+export default UsersBackOffice;
