@@ -45,7 +45,7 @@ const AppRoutes = () => {
         <Route path="/category/:id" element={<Category />} />{/* TODO: ruta rol administrador */}
       </Routes>
       <Footer />
-    </BrowserRouter>
+    </BrowserRouter> 
   );
 };
 
