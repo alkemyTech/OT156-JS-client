@@ -14,11 +14,6 @@ const ContactForm = () => {
     const [email, setEmail] = useState('');
     const [content, setContent] = useState('');
     const [errors, seterrors] = useState({});
-    const [sendComplete, setSendComplete] = useState({
-        error: false,
-        success: false,
-        msg: '',
-    });
 
     const handleName = (e) => {
         if (e.target.value.length > 3) seterrors({ ...errors, name: null });
