@@ -19,7 +19,9 @@ import Nosotros from '../pages/nosotros/nosotros';
 import Actividades from '../pages/actividades/actividades';
 import Actividad from '../pages/actividad/actividad';
 import Testimonios from '../pages/testimonios/testimonios';
-import ContactForm from '../components/contactForm/ContactForm';
+import ContactForm from './../components/contactForm/ContactForm';
+import SlidesBackOffice from './../pages/backoffice/slides';
+
 
 
 const AppRoutes = () => {
@@ -44,6 +46,7 @@ const AppRoutes = () => {
         <Route path="/backoffice/categories" element={<CategoriesBackOffice />} /> {/* TODO: ruta rol administrador */}
         <Route path="/backoffice/members" element={<MembersBackOffice />} /> {/* TODO: ruta rol administrador */}
         <Route path="/backoffice/testimonials" element={<TestimonialsBackOffice />} /> {/* TODO: ruta rol administrador */}
+        <Route path="/backoffice/slides" element={<SlidesBackOffice />} /> {/* TODO: ruta rol administrador */}
         <Route path="/category" element={<Category />} /> {/* TODO: ruta rol administrador */}
         <Route path="/category/:id" element={<Category />} />{/* TODO: ruta rol administrador */}
       </Routes>
