@@ -23,7 +23,7 @@ const Header = () => {
   return (
     <Navbar>
       <Container>
-        <Navbar.Brand href="#home">
+        <Navbar.Brand >
           <img
             alt={result.name}
             src={result.image}

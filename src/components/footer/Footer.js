@@ -27,10 +27,7 @@ const Footer = () => {
       <section className="row">
         <div className="link d-flex justify-content-around ">
           <section className=" d-flex col-sm justify-content-around ">
-            <Link className="p-3 text-decoration-none" to={'/news'}>
-              Noticias
-            </Link>
-            <Link className="p-3 text-decoration-none" to={'/news'}>
+            <Link className="p-3 text-decoration-none" to={'/actividades'}>
               Actividades
             </Link>
             <Link className="p-3 text-decoration-none" to={'/news'}>
@@ -47,10 +44,10 @@ const Footer = () => {
           </section>
           <section className="d-flex col-sm row justify-content-between ">
             <div className="d-flex justify-content-evenly">
-              <Link className="p-3 text-decoration-none" to={'/news'}>
-                Testimonio
+              <Link className="p-3 text-decoration-none" to={'/testimonios'}>
+                Testimonios
               </Link>
-              <Link className="p-3 text-decoration-none" to={'/news'}>
+              <Link className="p-3 text-decoration-none" to={'/nosotros'}>
                 Nosotros
               </Link>
             </div>
