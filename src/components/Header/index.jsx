@@ -21,7 +21,7 @@ const Header = () => {
   }, []);
 
   return (
-    <Navbar>
+    <Navbar sticky="top">
       <Container>
         <Navbar.Brand >
           <img

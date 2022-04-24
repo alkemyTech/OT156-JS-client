@@ -18,7 +18,8 @@ import MembersBackOffice from '../pages/backoffice/members';
 import Nosotros from '../pages/nosotros/nosotros';
 import Actividades from '../pages/actividades/actividades';
 import Actividad from '../pages/actividad/actividad';
-import ContactForm from '../components/contactForm/ContactForm';
+import Testimonios from '../pages/testimonios/testimonios';
+
 
 const AppRoutes = () => {
 
@@ -31,6 +32,7 @@ const AppRoutes = () => {
         <Route path="/register" element={<RegistrationForm />} />
         <Route path="/news" element={<News />} />
         <Route path="/nosotros" element={<Nosotros />} />
+        <Route path="/testimonios" element={<Testimonios />} />
         <Route path="/actividades" element={<Actividades />} />
         <Route path="/actividad/:id" element={<Actividad />} />
         <Route path="/novedad/:id" element={<Entry />} />

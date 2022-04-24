@@ -12,7 +12,7 @@ export const GetAllNews = () => {
             setLoading(true);
             try {
                 const result = await axios.get("http://localhost:3000/news");
-                setNews(result.data.entries);
+                setNews(result.data.entries.reverse());
             } catch (error) {
                 setError(error);
             }
