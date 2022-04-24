@@ -18,6 +18,7 @@ import MembersBackOffice from '../pages/backoffice/members';
 import Nosotros from '../pages/nosotros/nosotros';
 import Actividades from '../pages/actividades/actividades';
 import Actividad from '../pages/actividad/actividad';
+import ContactForm from '../components/contactForm/ContactForm';
 
 const AppRoutes = () => {
 
@@ -33,6 +34,7 @@ const AppRoutes = () => {
         <Route path="/actividades" element={<Actividades />} />
         <Route path="/actividad/:id" element={<Actividad />} />
         <Route path="/novedad/:id" element={<Entry />} />
+        <Route path="/contacto" element={<ContactForm />} />
         <Route path="/backoffice" element={<BackOffice />} /> {/* TODO: ruta rol administrador */}
         <Route path="/backoffice/news" element={<NewsBackoffice />} /> {/* TODO: ruta rol administrador */}
         <Route path="/backoffice/activities" element={<ActivitiesBackoffice />} /> {/* TODO: ruta rol administrador */}
