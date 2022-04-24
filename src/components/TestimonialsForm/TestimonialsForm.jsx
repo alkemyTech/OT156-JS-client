@@ -1,25 +1,27 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
-import FileUploader from './FileUploader';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { postRequest } from '../../services/apiService';
 import axios from 'axios';
+import { GetTestimonialById } from '../../services/testimonials';
 
-const TestimonialsForm = ({ testimony }) => {
-    const [name, setName] = useState(testimony ? testimony.name : '');
-    const [image, setImage] = useState(testimony ? testimony.image : '');
-    const [content, setContent] = useState(testimony ? testimony.content : '');
+const TestimonialsForm = ({ id, handleEdit, handleCreate }) => {
+    const { testimonial } = GetTestimonialById({ id });
+    const [name, setName] = useState('');
+    const [content, setContent] = useState('');
     const [errors, seterrors] = useState({});
+
+    useEffect(() => {
+        if (testimonial?.name) {
+            setName(testimonial?.name);
+            setContent(testimonial?.content);
+        }
+    }, [testimonial]);
 
     const handleName = (e) => {
         if (e.target.value.length > 3) seterrors({ ...errors, name: null });
         setName(e.target.value);
-    }
-
-    const handleImage = (e) => {
-        if (e.target.files[0]) seterrors({ ...errors, image: null });
-        setImage(e.target.files[0]);
     }
 
     const handleContent = (event, editor) => {
@@ -31,35 +33,35 @@ const TestimonialsForm = ({ testimony }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (name.length < 3) seterrors(prev => ({ ...prev, name: 'El nombre debe contener al menos 3 caracteres' }));
-        if (!image) seterrors(prev => ({ ...prev, image: 'Debe seleccionar una imagen' }));
         if (!content) seterrors(prev => ({ ...prev, content: 'Debe ingresar un contenido' }));
-        if (errors.name || errors.image || errors.content) return;
+        if (errors.name || errors.content) return;
 
         /* TODO
         añadir envío de imagen a endpoint para subir archivos al servidor*/
 
-        const testimonial = {
+        const newTestimonial = {
             name,
-            image: image.name,
             content
         }
-        if (testimony) {
 
-            axios.patch(`http://localhost:3000/testimonials/${testimony.id}`, testimonial)
+        if (testimonial !== null) {
+
+            axios.put(`http://localhost:3000/testimonials/${id}`, newTestimonial)
                 .then(res => {
-                    console.log(res);
+                    seterrors({});
+                    handleEdit();
                 })
                 .catch(err => {
                     console.log(err);
                 })
         } else {
 
-            postRequest('http://localhost:3000/testimonials', testimonial)
+            postRequest('http://localhost:3000/testimonials', newTestimonial)
                 .then(res => {
                     setName('');
-                    setImage(null);
                     setContent('');
                     seterrors({});
+                    handleCreate();
                 })
                 .catch(err => {
                     console.log(err);
@@ -71,7 +73,7 @@ const TestimonialsForm = ({ testimony }) => {
         <Form onSubmit={handleSubmit} className="container-sm mt-5 border border-1 rounded-3 p-3">
 
             <Form.Group className="mb-3">
-                <Form.Label>Name</Form.Label>
+                <Form.Label>Nombre</Form.Label>
                 <Form.Control
                     type='text'
                     name='name'
@@ -83,10 +85,6 @@ const TestimonialsForm = ({ testimony }) => {
             </Form.Group>
             {errors.name && <Alert variant="danger">{errors.name}</Alert>}
 
-            <FileUploader
-                handleImage={handleImage}
-            />
-            {errors.image && <Alert variant="danger">{errors.image}</Alert>}
             <Form.Group className="mb-3">
                 <CKEditor
                     editor={ClassicEditor}
@@ -97,14 +95,16 @@ const TestimonialsForm = ({ testimony }) => {
             {errors.content && <Alert variant="danger">{errors.content}</Alert>}
 
             {
-                testimony ?
-                    <Button variant="primary" type="submit">
-                        Actualizar Testimonio
-                    </Button>
-                    :
-                    <Button variant="primary" type="submit">
-                        Crear Testimonio
-                    </Button>
+                testimonial!== null &&
+                <Button variant="primary" type="submit">
+                    Actualizar Testimonio
+                </Button>
+            }
+            {
+                testimonial === null &&
+                <Button variant="primary" type="submit">
+                    Crear Testimonio
+                </Button>
             }
 
         </Form>
