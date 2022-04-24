@@ -1,0 +1,53 @@
+.testimonios {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+}
+
+.testimonios__container {
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    padding: 16px;
+    background-color: white;
+    height: 100%;
+    text-align: center;
+}
+
+.testimonios__container__title h1 {
+    font-size: 32px;
+    font-weight: bold;
+    color: #134d4c;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    font-family: 'Yeseva One', cursive;
+    letter-spacing: 2px;
+}
+
+.testimonios__container__quotes__quote>.testimonials__quote>.testimonials__quote__navigation {
+    display: none;
+}
+
+.testimonios__container__quotes__quote {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+}
+
+.testimonios__container__quotes__quote>.testimonials__quote {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 16px;
+    box-shadow: 1px 1px 5px #165b5e73;
+    border-radius: 8px;
+    background-color: #e8edff9e;
+    cursor: auto;
+}

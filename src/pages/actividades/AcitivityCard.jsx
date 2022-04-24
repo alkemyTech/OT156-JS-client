@@ -5,14 +5,14 @@ const AcitivityCard = (props) => {
     const { id, name, image, content } = props;
     return (
         <article className="activity-post">
-            <Link to={`/novedad/${id}`}>
+            <Link to={`/actividad/${id}`}>
                 <div className="image__top" style={{ backgroundImage: `url('${image}')` }}>
 
                 </div>
             </Link>
 
             <div className="title">
-                <Link to={`/novedad/${id}`}>
+                <Link to={`/actividad/${id}`}>
 
                     {name}
 

@@ -5,6 +5,7 @@ import HomeTitle from './HomeTitle';
 import { dataNews } from './dataNews';
 import './home.css';
 import { GetAllNews } from '../../services/news';
+import Testimonials from '../../components/Testimonials/Testimonials';
 
 const Home = ({ welcome }) => {
   const [data, setData] = useState({ welcome: '' });
@@ -21,24 +22,32 @@ const Home = ({ welcome }) => {
     <div className="layout">
       <HomeTitle text={data.welcome} />
       <Slider />
-      <main className='news'>
-            <h1>Ultimas Novedades</h1>
-            <div className="news__container">
-                {
-                    news.slice(-3).reverse().map(item => {
-                        return (
-                            <NewsCard
-                                key={item.id}
-                                id={item.id}
-                                titleNews={item.name}
-                                imageNews={item.image}
-                                textNews={item.content}
-                            />
-                        )
-                    })
-                }
-            </div>
-        </main>
+      <section className='news'>
+        <h1>Ultimas Novedades</h1>
+        <div className="news__container">
+          {
+            news.slice(0,3).map(item => {
+              return (
+                <NewsCard
+                  key={item.id}
+                  id={item.id}
+                  titleNews={item.name}
+                  imageNews={item.image}
+                  textNews={item.content}
+                />
+              )
+            })
+          }
+        </div>
+      </section>
+      <section className='news'>
+        <h1>Testimonios</h1>
+        <div className="news__container">
+          <Testimonials />
+        </div>
+      </section>
+
+
     </div>
   );
 };

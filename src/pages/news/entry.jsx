@@ -8,14 +8,6 @@ const Entry = () => {
     return (
         <div className="entry__container">
             {news.name ? <>
-                <div className="entry___stats">
-                    <div className="entry__date">
-                        <p>{news.name && new Date(news.createdAt).toDateString()}</p>
-                    </div>
-                    <div className="entry__type">
-                        <p>{news.type}</p>
-                    </div>
-                </div>
                 <div className="entry__title">
                     <h1>{news.name}</h1>
                 </div>
