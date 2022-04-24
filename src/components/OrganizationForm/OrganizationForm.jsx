@@ -141,7 +141,7 @@ const OrganizationForm = ({ organization, edit, handleEdit }) => {
                     <Form.Control
                         type='number'
                         name='phone'
-                        placeholder='Nombre'
+                        placeholder='Telefono'
                         id='phone'
                         onChange={handlePhone}
                         value={phone}
@@ -155,7 +155,7 @@ const OrganizationForm = ({ organization, edit, handleEdit }) => {
                     <Form.Control
                         type='text'
                         name='address'
-                        placeholder='Nombre'
+                        placeholder='Dirección'
                         id='address'
                         onChange={handleAddress}
                         value={address}
@@ -169,7 +169,7 @@ const OrganizationForm = ({ organization, edit, handleEdit }) => {
                     <Form.Control
                         type='text'
                         name='welcomeText'
-                        placeholder='Nombre'
+                        placeholder='Texto de Bienvenida'
                         id='welcomeText'
                         onChange={handleWelcomeText}
                         value={welcomeText}
