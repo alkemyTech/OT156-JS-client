@@ -37,3 +37,25 @@ export const GetAllTestimonials = () => {
 
   return { testimonials, loading, error, setRefresh };
 };
+
+export const GetTestimonialById = ({id}) => {
+  const [testimonial, setTestimonial] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+      const fetchData = async () => {
+          setLoading(true);
+          try {
+              const result = await axios.get(`http://localhost:3000/testimonials/${id}`);
+              setTestimonial(result.data.testimonial);
+          } catch (error) {
+              setError(error);
+          }
+          setLoading(false);
+      };
+      fetchData();
+  }, [id]);
+
+  return { testimonial, loading, error };
+}

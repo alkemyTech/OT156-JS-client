@@ -19,7 +19,6 @@ import Nosotros from '../pages/nosotros/nosotros';
 import Actividades from '../pages/actividades/actividades';
 import Actividad from '../pages/actividad/actividad';
 
-
 const AppRoutes = () => {
 
   return (
