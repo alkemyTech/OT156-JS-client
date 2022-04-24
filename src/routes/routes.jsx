@@ -20,6 +20,7 @@ import Actividades from '../pages/actividades/actividades';
 import Actividad from '../pages/actividad/actividad';
 import Testimonios from '../pages/testimonios/testimonios';
 
+
 const AppRoutes = () => {
 
   return (
@@ -35,6 +36,7 @@ const AppRoutes = () => {
         <Route path="/actividades" element={<Actividades />} />
         <Route path="/actividad/:id" element={<Actividad />} />
         <Route path="/novedad/:id" element={<Entry />} />
+        <Route path="/contacto" element={<ContactForm />} />
         <Route path="/backoffice" element={<BackOffice />} /> {/* TODO: ruta rol administrador */}
         <Route path="/backoffice/news" element={<NewsBackoffice />} /> {/* TODO: ruta rol administrador */}
         <Route path="/backoffice/activities" element={<ActivitiesBackoffice />} /> {/* TODO: ruta rol administrador */}
