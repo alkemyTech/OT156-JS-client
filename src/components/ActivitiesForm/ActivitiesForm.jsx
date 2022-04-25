@@ -3,9 +3,9 @@ import { Form, Button, Alert } from 'react-bootstrap';
 import FileUploader from './FileUploader';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { postRequest } from '../../services/apiService';
 import axios from 'axios';
 import { GetActivitiesById } from '../../services/activities';
+import Spinner from '../Spinner/Spinner';
 
 const ActivitiesForm = ({ id, handleEdit, handleCreate }) => {
     const token = localStorage.getItem("token");
@@ -14,6 +14,8 @@ const ActivitiesForm = ({ id, handleEdit, handleCreate }) => {
     const [image, setImage] = useState('');
     const [content, setContent] = useState('');
     const [errors, seterrors] = useState({});
+    const [loading, setLoading] = useState(false);
+
     useEffect(() => {
         if (activity.name) {
             setName(activity?.name);
@@ -46,45 +48,62 @@ const ActivitiesForm = ({ id, handleEdit, handleCreate }) => {
         if (!content) seterrors(prev => ({ ...prev, content: 'Debe ingresar un contenido' }));
         if (errors.name || errors.image || errors.content) return;
 
-        /* TODO
-        añadir envío de imagen a endpoint para subir archivos al servidor*/
+        const form = new FormData();
+        form.append("name", name);
+        form.append("content", content);
+        form.append("image", image);
 
-        const newActivity = {
-            name,
-            image: image.name ?? image,
-            content,
-        }
+        const options = {
+            method: 'POST',
+            url: 'http://localhost:3000/activities/',
+            headers: {
+                'Content-Type': 'multipart/form-data; boundary=---011000010111000001101001',
+                Authorization: token
+            },
+            data: form
+        };
+
+        const optionsUpdate = {
+            method: 'PUT',
+            url: `http://localhost:3000/activities/${id}`,
+            headers: {
+                'Content-Type': 'multipart/form-data; boundary=---011000010111000001101001',
+                Authorization: token
+            },
+            data: form
+        };
+
 
         if (activity.length !== 0) {
-            axios.put(`http://localhost:3000/activities/${id}`,
-                { body: newActivity },
-                {
-                    headers: {
-                        Authorization: `${token}`
-                    }
-                }
-            )
+            setLoading(true);
+            axios.request(optionsUpdate)
                 .then(res => {
                     seterrors({});
                     handleEdit();
+                    setLoading(false);
                 })
                 .catch(err => {
                     console.log(err);
+                    setLoading(false);
                 })
         } else {
-            postRequest('http://localhost:3000/activities', newActivity)
+            setLoading(true);
+            axios.request(options)
                 .then(res => {
                     setName('');
                     setImage(null);
                     setContent('');
                     seterrors({});
                     handleCreate();
+                    setLoading(false);
                 })
                 .catch(err => {
                     console.log(err);
+                    setLoading(false);
                 })
         }
     }
+
 
     return (
         <Form onSubmit={handleSubmit} className="container-sm mt-5 border border-1 rounded-3 p-3">
@@ -156,6 +175,7 @@ const ActivitiesForm = ({ id, handleEdit, handleCreate }) => {
                     </Button>
             }
 
+            {loading && <Spinner />}
         </Form>
     );
 }
