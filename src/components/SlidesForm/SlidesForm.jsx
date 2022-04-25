@@ -4,6 +4,7 @@ import FileUploader from '../NewsForm/FileUploader';
 import { postRequest } from '../../services/apiService';
 import axios from 'axios';
 import { GetSlidesById } from '../../services/slides';
+import Spinner from '../Spinner/Spinner';
 
 const SlidesForm = ({ id, handleEdit, handleCreate }) => {
     const token = localStorage.getItem("token");
@@ -11,7 +12,8 @@ const SlidesForm = ({ id, handleEdit, handleCreate }) => {
     const [name, setName] = useState('');
     const [image, setImage] = useState('');
     const [errors, seterrors] = useState({});
-    console.log(image)
+    const [loading, setLoading] = useState(false);
+
     useEffect(() => {
         if (slide?.text) {
             setName(slide?.text);
@@ -36,38 +38,54 @@ const SlidesForm = ({ id, handleEdit, handleCreate }) => {
         if (!image) seterrors(prev => ({ ...prev, image: 'Debe seleccionar una imagen' }));
         if (errors.name || errors.image || errors.content) return;
 
-        /* TODO
-        añadir envío de imagen a endpoint para subir archivos al servidor*/
+        const form = new FormData();
+        form.append("text", name);
+        form.append("image", image);
 
-        const newSlides = {
-            text: name,
-            imageurl: image.name ?? image,
-        }
+        const options = {
+            method: 'POST',
+            url: 'http://localhost:3000/slides/',
+            headers: {
+                'Content-Type': 'multipart/form-data; boundary=---011000010111000001101001',
+                Authorization: token
+            },
+            data: form
+        };
+
+        const optionsUpdate = {
+            method: 'PUT',
+            url: `http://localhost:3000/slides/${id}`,
+            headers: {
+                'Content-Type': 'multipart/form-data; boundary=---011000010111000001101001',
+                Authorization: token
+            },
+            data: form
+        };
 
         if (slide) {
-            axios.put(`http://localhost:3000/slides/${id}`,
-                { body: newSlides },
-                {
-                    headers: {
-                        Authorization: `${token}`
-                    }
-                })
+            setLoading(true);
+            axios.request(optionsUpdate)
                 .then(res => {
                     seterrors({});
                     handleEdit();
+                    setLoading(false);
                 })
                 .catch(err => {
                     console.log(err);
+                    setLoading(false);
                 })
         } else {
-            postRequest('http://localhost:3000/slides', newSlides)
+            setLoading(true);
+            axios.request(options)
                 .then(res => {
                     setName('');
                     seterrors({});
                     handleCreate();
+                    setLoading(false);
                 })
                 .catch(err => {
                     console.log(err);
+                    setLoading(false);
                 })
         }
     }
@@ -131,6 +149,7 @@ const SlidesForm = ({ id, handleEdit, handleCreate }) => {
                         Crear Slide
                     </Button>
             }
+            {loading && <Spinner />}
 
         </Form>
     );
