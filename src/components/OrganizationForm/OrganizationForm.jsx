@@ -2,14 +2,17 @@ import { useState, useEffect } from 'react';
 import { Form, Button, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import FileUploader from '../NewsForm/FileUploader';
+import Spinner from '../Spinner/Spinner';
 
 const OrganizationForm = ({ organization, edit, handleEdit }) => {
+    const token = localStorage.getItem("token");
     const [name, setName] = useState('');
     const [image, setImage] = useState('');
     const [phone, setPhone] = useState();
     const [address, setAddress] = useState('');
     const [welcomeText, setWelcomeText] = useState('');
     const [errors, seterrors] = useState({});
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (organization) {
@@ -56,26 +59,34 @@ const OrganizationForm = ({ organization, edit, handleEdit }) => {
         if (welcomeText.length < 3) seterrors(prev => ({ ...prev, welcomeText: 'El texto de bienvenida debe contener al menos 3 caracteres' }));
         if (errors.name || errors.content) return;
 
-        const newOrganization = {
-            name,
-            image: image.name ?? image,
-            phone,
-            address,
-            welcomeText
-        }
+        const form = new FormData();
+        form.append("name", name);
+        form.append("phone", phone);
+        form.append("image", image);
+        form.append("address", address);
+        form.append("welcomeText", welcomeText);
 
-        axios.put('http://localhost:3000/organizations/1', newOrganization,
-            {
-                headers: {
-                    Authorization: `${localStorage.getItem('token')}`
-                }
-            })
+        const optionsUpdate = {
+            method: 'PUT',
+            url: `http://localhost:3000/organizations/1`,
+            headers: {
+                'Content-Type': 'multipart/form-data; boundary=---011000010111000001101001',
+                Authorization: token
+            },
+            data: form
+        };
+
+        setLoading(true);
+
+            axios.request(optionsUpdate)
             .then(res => {
                 seterrors({});
                 handleEdit();
+                setLoading(false);
             })
             .catch(err => {
                 console.log(err);
+                setLoading(false);
             })
     }
 
@@ -182,6 +193,7 @@ const OrganizationForm = ({ organization, edit, handleEdit }) => {
                     <Button variant="primary" type="submit">
                         Editar Organización
                     </Button>}
+                    {loading && <Spinner />}
 
             </Form>
 

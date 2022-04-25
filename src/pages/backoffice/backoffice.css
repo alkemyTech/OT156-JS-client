@@ -93,3 +93,7 @@ tr>td>p{
     align-items: center;
     padding: 16px;
 }
+
+.organization__image>img{
+    max-height: 160px;
+}

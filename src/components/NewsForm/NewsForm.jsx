@@ -3,12 +3,13 @@ import { Form, Button, Alert } from 'react-bootstrap';
 import FileUploader from './FileUploader';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import { postRequest } from '../../services/apiService';
 import axios from 'axios';
 import { GetNewsById } from './../../services/news';
 import { GetAllCategories } from './../../services/categories';
+import Spinner from '../Spinner/Spinner';
 
 const NewsForm = ({ id, handleEdit,handleCreate }) => {
+    const token = localStorage.getItem("token");
     const { news } = GetNewsById({ id });
     const [name, setName] = useState('');
     const [image, setImage] = useState('');
@@ -16,6 +17,8 @@ const NewsForm = ({ id, handleEdit,handleCreate }) => {
     const [categoryId, setCategoryId] = useState();
     const [errors, seterrors] = useState({});
     const categories = GetAllCategories();
+    const [loading, setLoading] = useState(false);
+
     useEffect(() => {
         if (news.name) {
             setName(news?.name);
@@ -53,36 +56,59 @@ const NewsForm = ({ id, handleEdit,handleCreate }) => {
         if (!content) seterrors(prev => ({ ...prev, content: 'Debe ingresar un contenido' }));
         if (errors.name || errors.image || errors.content) return;
 
-        /* TODO
-        añadir envío de imagen a endpoint para subir archivos al servidor*/
+        const form = new FormData();
+        form.append("name", name);
+        form.append("content", content);
+        form.append("image", image);
+        form.append("categoryId", categoryId);
 
-        const newNews = {
-            name,
-            image: image.name ?? image,
-            content,
-            categoryId
-        }
+        const options = {
+            method: 'POST',
+            url: 'http://localhost:3000/news/',
+            headers: {
+                'Content-Type': 'multipart/form-data; boundary=---011000010111000001101001',
+                Authorization: token
+            },
+            data: form
+        };
+
+        const optionsUpdate = {
+            method: 'PUT',
+            url: `http://localhost:3000/news/${id}`,
+            headers: {
+                'Content-Type': 'multipart/form-data; boundary=---011000010111000001101001',
+                Authorization: token
+            },
+            data: form
+        };
+
 
         if (news.length !== 0) {
-            axios.put(`http://localhost:3000/news/${id}`, newNews)
+            setLoading(true);
+            axios.request(optionsUpdate)
                 .then(res => {
                     seterrors({});
                     handleEdit();
+                    setLoading(false);
                 })
                 .catch(err => {
                     console.log(err);
+                    setLoading(false);
                 })
         } else {
-            postRequest('http://localhost:3000/news', newNews)
+            setLoading(true);
+            axios.request(options)
                 .then(res => {
                     setName('');
                     setImage(null);
                     setContent('');
                     seterrors({});
                     handleCreate();
+                    setLoading(false);
                 })
                 .catch(err => {
                     console.log(err);
+                    setLoading(false);
                 })
         }
     }
@@ -167,7 +193,7 @@ const NewsForm = ({ id, handleEdit,handleCreate }) => {
                         Crear Novedad
                     </Button>
             }
-
+            {loading && <Spinner />}
         </Form>
     );
 }
