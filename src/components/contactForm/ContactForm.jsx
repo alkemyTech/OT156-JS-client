@@ -83,6 +83,7 @@ const ContactForm = () => {
                         onChange={handleName}
                         value={name}
                     />
+                    {errors.name && <Alert className='col' variant="danger">{errors.name}</Alert>}
                 </Form.Group >
                 
                 <Form.Group className='col px-3'>
@@ -98,7 +99,7 @@ const ContactForm = () => {
                 </Form.Group>
                
             </Form.Group>
-            {errors.name && <Alert className='col' variant="danger">{errors.name}</Alert>}
+
             {errors.apellido && <Alert className='col' variant="danger">{errors.apellido}</Alert>}
             <Form.Group className='px-3 mb-3'>
             <Form.Label>Email</Form.Label>

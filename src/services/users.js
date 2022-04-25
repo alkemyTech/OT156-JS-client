@@ -65,3 +65,24 @@ export const GetUserById = ({id}) => {
 
   return { user, loading, error };
 }
+
+export const GetUser = async () => {
+  const response = {};
+  const token = localStorage.getItem('token');
+
+  try {
+    const { data } = await axios.get(`http://localhost:3000/auth/me`,{
+      headers: {
+        Authorization: `${token}`,
+      },
+    });
+    if (data.roleId === 1) {
+      response.data = { ...data, isAdmin: true };
+    } else {
+      response.data = { ...data, isAdmin: false };
+    }
+  } catch (error) {
+    response.error = error;
+  }
+  return response.data;
+};

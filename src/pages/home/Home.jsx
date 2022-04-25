@@ -6,6 +6,12 @@ import { dataNews } from './dataNews';
 import './home.css';
 import { GetAllNews } from '../../services/news';
 import Testimonials from '../../components/Testimonials/Testimonials';
+import { GetUser } from '../../services/users';
+import { userState } from '../../features/user/userSlice';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import AdminMenu from '../../components/Menu/AdminMenu';
+import UserMenu from '../../components/Menu/UserMenu';
 
 const Home = ({ welcome }) => {
   const [data, setData] = useState({ welcome: '' });
@@ -18,8 +24,22 @@ const Home = ({ welcome }) => {
     });
   }, []);
 
+  const UserInfo = () => {
+    const user = useSelector(userState);
+    const dispatch = useDispatch();
+    
+
+    return (<>{
+                user.token !== null ? ( user.roleId ===1 ? <AdminMenu />: <UserMenu />):''
+              }
+
+    </>
+    );
+  }
+
   return (
     <div className="layout">
+      <UserInfo />
       <HomeTitle text={data.welcome} />
       <Slider />
       <section className='news'>

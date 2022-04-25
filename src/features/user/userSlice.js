@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { deleteRequest } from "../../services/apiService";
 
+const initialState = {
+  token: null,
+}
+
 export const userSlice = createSlice({
   name: "user",
-  initialState: {
-    token: null,
-  },
+  initialState,
   reducers: {
     login: (state, action) => {
       const { id, firstName, lastName, email, image, roleId, token } =
@@ -19,9 +21,7 @@ export const userSlice = createSlice({
       state.token = token;
     },
 
-    logout: (state) => {
-      state = null;
-    },
+    logout: () => initialState,
     deleteUser: (state,) => {
       state = null;
     },
