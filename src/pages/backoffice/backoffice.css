@@ -84,3 +84,16 @@
 tr>td>p{
     margin: 0;
 }
+
+.organization__image{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 16px;
+}
+
+.organization__image>img{
+    max-height: 160px;
+}
