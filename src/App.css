@@ -42,3 +42,7 @@
     transform: translateY(0px);
   }
 }
+.navbar{
+  background-color: white;
+  box-shadow: 1px 1px 3px #80808080;
+}

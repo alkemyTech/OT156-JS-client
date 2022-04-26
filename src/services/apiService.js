@@ -17,3 +17,8 @@ export async function postRequest(link, values) {
   );
   return response.data;
 }
+
+export async function deleteRequest(link) {
+  let response = await axios.delete(link);
+  return response.data;
+}

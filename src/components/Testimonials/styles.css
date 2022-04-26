@@ -1,0 +1,72 @@
+.testimonials {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 16px;
+    box-shadow: 1px 1px 5px #165b5e73;
+    border-radius: 8px;
+    background-color: #e8edff9e;
+}
+
+.testimonials__quote {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 16px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+blockquote {
+    font-family: 'Merriweather';
+    font-style: italic;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 32px;
+    letter-spacing: .02em;
+    color: #555555;
+}
+
+.testimonials__quote__author {
+    font-family: 'Merriweather';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    color: #252525;
+}
+
+.testimonials__quote__navigation {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 8px;
+}
+
+.element__circle {
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    background-color: #319795;
+}
+
+.element__circle.active {
+    background-color: #125352;
+}
+.quote__image{
+    height: 100px;
+    width: 100px;
+    background-position: center center;
+    background-size: 160px;
+    border-radius: 50%;
+    margin-bottom: 16px;
+}

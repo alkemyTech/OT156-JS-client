@@ -19,8 +19,7 @@ export default function ErrorAlert({ title }) {
     };
   
     return (
-      <div className="errorRoot">
-        <button onClick={() => showAlert()}>Alert</button>
+      <div className="errorRoot" onClick={showAlert()}>
         <SweetAlert />
       </div>
     );
