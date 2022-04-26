@@ -24,22 +24,10 @@ const Home = ({ welcome }) => {
     });
   }, []);
 
-  const UserInfo = () => {
-    const user = useSelector(userState);
-    const dispatch = useDispatch();
-    
 
-    return (<>{
-                user.token !== null ? ( user.roleId ===1 ? <AdminMenu />: <UserMenu />):''
-              }
-
-    </>
-    );
-  }
 
   return (
     <div className="layout">
-      <UserInfo />
       <HomeTitle text={data.welcome} />
       <Slider />
       <section className='news'>

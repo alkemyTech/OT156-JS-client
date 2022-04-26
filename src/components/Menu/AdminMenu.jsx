@@ -40,8 +40,8 @@ const AdminMenu = () => {
       </Link>
       </NavDropdown.Item>
       <NavDropdown.Divider />
-      <NavDropdown.Item className='links'>
-        <button className='btn btn-primary text-white' onClick={logoutUser}>
+      <NavDropdown.Item className='links d-flex justify-content-center '>
+        <button className='btn btn-primary  btn-lg btn-block text-white ' onClick={logoutUser}>
           Cerrar sesión
         </button>
       </NavDropdown.Item>
